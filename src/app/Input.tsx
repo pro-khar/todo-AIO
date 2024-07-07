@@ -7,25 +7,41 @@ import { useDispatch } from "react-redux";
 import { addTodo } from "./Redux/todoSlice";
 
 function Input_g() {
-  const [data, setdata] = useState("");
+  const [data, setData] = useState({ title: "", gender: "" });
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addTodo(data));
-    setdata("");
+    setData({ title: "", gender: "" });
+  };
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setData((prevState) => ({
+      ...prevState,
+      [id]: value,
+    }));
   };
 
   return (
     <div className="p-5 border w-1/2 rounded-md h-[fit-content] mt-[200px]">
       <form className="space-y-2" onSubmit={handleSubmit}>
-        <Label htmlFor="input1">Add Todo</Label>
+        <Label htmlFor="title">Add Todo</Label>
         <div className="flex gap-1">
           <Input
-            id="input1"
-            value={data}
-            placeholder="Type something"
-            onChange={(e) => setdata(e.target.value)}
+            id="title"
+            value={data.title}
+            placeholder="Type title"
+            onChange={handleChange}
+            required
+          />
+          <Input
+            id="gender"
+            value={data.gender}
+            placeholder="Type gender"
+            onChange={handleChange}
+            required
           />
           <Button className="w-1/3" type="submit">
             Add

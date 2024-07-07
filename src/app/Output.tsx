@@ -6,8 +6,9 @@ function Output() {
   return (
     <div className="border rounded-md h-1/3 w-1/2 p-5">
       {todos.map((todo) => (
-        <div key={todo.id}>
+        <div key={todo.id} className="flex justify-between">
           <p>{todo.title}</p>
+          <p>{todo.gender}</p>
         </div>
       ))}
     </div>
